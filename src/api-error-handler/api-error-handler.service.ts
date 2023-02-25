@@ -18,7 +18,7 @@ export class ApiErrorHandlerService {
     private readonly toastr: ToastrService
   ) {}
 
-  // TODO: find out how to implement success and request handling in one RxJS OperatorFn
+  // TODO: implement success and error handling using a single RxJS OperatorFn
   handleRequest(obs$: Observable<any>, operation: EntityOperation): void {
     obs$.pipe(
       // Possible usage suggestion:
@@ -32,13 +32,13 @@ export class ApiErrorHandlerService {
     );
   }
 
-  // TODO: make from the onSuccess method pipeable RxJs OperatorFn
+  // TODO: make this a pipeable RxJs OperatorFn
   handleSuccess(operation: EntityOperation): void {
     const { title, message } = this.translation[operation].success;
     this.toastr.success(message, title, this.config.toastrConfig);
   }
 
-  // TODO: make from the onError method pipeable RxJs OperatorFn
+  // TODO: make this a pipeable RxJs OperatorFn
   handleError(operation: EntityOperation): void {
     const { title, message } = this.translation[operation].failure;
     this.toastr.error(message, title, this.config.toastrConfig);
