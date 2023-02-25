@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { getTranslation } from './get-translation.helper';
 import { CONFIG_TOKEN } from './config.token';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ApiErrorHandlerService {
   private readonly translation =
     this.config.customTranslation || getTranslation(this.config.entityName);
@@ -14,9 +14,11 @@ export class ApiErrorHandlerService {
   constructor(
     @Inject(CONFIG_TOKEN)
     private readonly config: ErrorHandlerConfig,
-    // TODO: make 3rd party toast service configurable
+    // TODO: make 3rd party service configurable
     private readonly toastr: ToastrService
-  ) {}
+  ) {
+    console.log(this.config);
+  }
 
   // TODO: implement success and error handling using a single RxJS OperatorFn
   handleRequest(obs$: Observable<any>, operation: EntityOperation): void {
